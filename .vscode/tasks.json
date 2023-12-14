@@ -1,0 +1,68 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "コンテナを停止する",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            // 先にコンテナをすべて落とす
+            "dependsOn": [
+                "stop_container"
+            ],
+            // すべてコンテナを落とした後にコンテナの状態を表示する
+            "command": "docker compose ps -a",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "detail": "docker compose downを実行し、コンテナを完全に停止する",
+            "icon": {
+                "id": "stop-circle"
+            }
+        },
+        // docker compose downでコンテナを停止する.
+        // 「コンテナを停止する」タスクと依存関係.
+        {
+            "label": "stop_container",
+            "type": "shell",
+            "command": "docker compose down",
+            // 依存関係のためメニューからは見えないように"hide"とする
+            "hide": true,
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+        },
+        {
+            "label": "コンテナの状態を見る",
+            "type": "shell",
+            "command": "docker compose ps -a",
+            "presentation": {
+                "echo": true,
+                "reveal": "silent",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": true,
+                "close": false
+            },
+            "problemMatcher": [],
+            "detail": "docker compose ps -a で実行中のコンテナの状態を確認する",
+            "icon": {
+                "id": "server-process"
+            }
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "dockerComposeFile": ["../compose.yml", "compose.yml"],
+    "service": "app",
+    "workspaceFolder": "/home/container/workspace",
+    "customizations": {
+        "vscode": {
+            // Ruby, Nodeの開発に必要なプラグイン
+            "extensions": [
+                "castwide.solargraph",
+                "shopify.ruby-lsp",
+                "shopify.ruby-extensions-pack",
+                "vue.volar",
+                "vue.vscode-typescript-vue-plugin",
+                "dbaeumer.vscode-eslint",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    },
+    // コンテナ作成前にホスト側で実行されるコマンド.
+    // ここでは、mountに必要なディレクトリや環境変数を作成する.
+    "initializeCommand": "bash .devcontainer/initialize.sh"
+}

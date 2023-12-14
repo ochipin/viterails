@@ -1,0 +1,10 @@
+# VSCodeのリモートコンテナ用のcompose.ymlファイル
+services:
+  app:
+    # ポート
+    ports:
+      - 3000:3000
+      - 5173:5173
+    # VSCodeで必要な設定を追記し、compose.ymlをオーバーライドできる
+    command: sleep infinity
+

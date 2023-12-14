@@ -1,0 +1,70 @@
+services:
+  # Rails&Nodeイメージ
+  app:
+    # 
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+      args:
+        - USERID=${UID}
+        - GROUPID=${GID}
+        - UBUNTU_VERSION=${UBUNTU_VERSION}
+        - RUBY_VERSION=${RUBY_VERSION}
+        - NODE_VERSION=${NODE_VERSION}
+    # ビルドしたイメージ
+    image: viterails
+    # ポート
+    ports:
+      - 3000:3000
+      - 5173:5173
+    # コンテナ内で使用する環境変数
+    environment:
+      # 日本時間
+      TZ: Asia/Tokyo
+      # 接続するデータベース情報
+      DB_DRIVER: postgresql
+      DB_HOST: db
+      DB_NAME: example
+      DB_USER: example
+      DB_PASSWORD: secret
+    # マウント先
+    volumes:
+      - ./workspace:/home/container/workspace
+      - ./vscode-server:/home/container/.vscode-server
+    command: sleep infinity
+  # データベース
+  db:
+    # Dockerイメージ
+    image: postgres:$POSTGRES_VERSION
+    # コンテナホスト名
+    hostname: postgres
+    user: "$UID:$GID"
+    # DBが使用するポート番号
+    ports:
+      - 5432
+    # ヘルスチェック
+    healthcheck:
+      test: pg_isready -U example
+      interval: 5s
+      timeout: 120s
+      retries: 10
+    # PostgreSQLが使用する環境変数
+    environment:
+      # PostgreSQLのroot権パスワード
+      POSTGRES_ROOT_PASSWORD: secret
+      # DBと、DBへアクセスするユーザID・パスワード
+      POSTGRES_USER: example
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DATABASE: example
+      POSTGRES_INITDB_ARGS: '--encoding=UTF8'
+      # 日本時間
+      TZ: Asia/Tokyo
+    # データ永続化
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    # ログ
+    logging:
+      driver: "json-file"
+      options:
+        max-size: 10m # 1ファイルにつき、10MBまでとする
+        max-file: 3   # ログファイルは3ファイルまでとする
