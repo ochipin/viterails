@@ -22,3 +22,5 @@ mkdir -p database vscode-server workspace
 # database -> PostgreSQL, MySQL等で使用する
 # vscode-server -> コンテナ内でのVSCodeプラグインを管理する
 # workspace -> RailsやNodeのプロジェクト本体を管理する
+docker pull ubuntu:$UBUNTU_VERSION
+docker pull postgres:$POSTGRES_VERSION
