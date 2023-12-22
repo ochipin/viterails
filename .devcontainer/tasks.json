@@ -1,0 +1,49 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        // TypeScript環境構築
+        {
+            "label": "TypeScript環境の構築",
+            "type": "shell",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                // yarn init
+                "yarn_init",
+                // yarn add typescript
+                "typescript_install"
+            ],
+            "command": "yarn tsc --init",
+            "problemMatcher": [],
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "detail": "yarnコマンドでTypeScript環境を構築する",
+            "icon": {
+                "id": "terminal-bash"
+            }
+        },
+
+        // yarn init の実行
+        {
+            "label": "yarn_init",
+            "type": "shell",
+            "command": "yarn init -y",
+            "hide": true,
+            "problemMatcher": []
+        },
+
+        // TypeScriptをインストールする
+        {
+            "label": "typescript_install",
+            "type": "shell",
+            "command": "yarn add typescript tsx @types/node",
+            "hide": true,
+            "problemMatcher": []
+        }
+    ]
+}
