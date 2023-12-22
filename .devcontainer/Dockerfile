@@ -69,6 +69,8 @@ ARG NODE_VERSION=20.10
 RUN curl https://get.volta.sh | bash && \
   /home/container/.volta/bin/volta install node@${NODE_VERSION} && \
   /home/container/.volta/bin/volta install yarn@1.22.21
+# TypeScript関連のライブラリをyarnでグローバルに構築する
+RUN /home/container/.volta/bin/yarn global add typescript tsx @types/node
 
 #
 # 6. 作業ディレクトリの設定
