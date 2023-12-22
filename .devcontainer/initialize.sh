@@ -18,9 +18,14 @@ echo RUBY_VERSION=${RUBY_VERSION} >> .env
 echo NODE_VERSION=${NODE_VERSION} >> .env
 
 # mount に必要なディレクトリを作成する
-mkdir -p database vscode-server workspace
+mkdir -p database vscode-server workspace/.vscode
+if [[ ! -f workspace/.vscode/tasks.json ]]; then
+    # tasks.json がまだ作られていない場合はデフォルトのtasks.jsonを作成する
+    cp -f .devcontainer/tasks.json workspace/.vscode/
+fi
 # database -> PostgreSQL, MySQL等で使用する
 # vscode-server -> コンテナ内でのVSCodeプラグインを管理する
 # workspace -> RailsやNodeのプロジェクト本体を管理する
+
 docker pull ubuntu:$UBUNTU_VERSION
 docker pull postgres:$POSTGRES_VERSION
