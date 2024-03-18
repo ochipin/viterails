@@ -10,7 +10,6 @@
                 "shopify.ruby-lsp",
                 "shopify.ruby-extensions-pack",
                 "vue.volar",
-                "vue.vscode-typescript-vue-plugin",
                 "dbaeumer.vscode-eslint",
                 "esbenp.prettier-vscode"
             ]
