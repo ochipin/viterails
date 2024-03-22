@@ -25,14 +25,14 @@ RUN groupadd -g $GROUPID container && \
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Rubyのインストールに必要なモジュールをインストールする
-RUN apt update && apt install -y git curl build-essential tzdata gcc bison iputils-ping \
+RUN apt update && apt install -y git curl build-essential tzdata gcc bison iputils-ping vim\
   libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm-dev
 # インストールエラーが発生しないよう、curlライブラリは順番にインストールする
 RUN apt install -y libcurl4-openssl-dev && \
   apt install -y libcurl4-nss-dev && \
   apt install -y libcurl4-gnutls-dev
 # Railsでデータベースを使用する際に必要になるモジュール
-RUN apt install -y libpq-dev libmysqlclient-dev libmecab-dev
+RUN apt install -y libpq-dev libmysqlclient-dev libmecab-dev sqlite3 libsqlite3-dev
 # YJITを有効にするために、rustをインストールする
 RUN apt install -y rustc && update-ca-certificates --fresh
 
